@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bridge Status Visualizer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 50%;
+      width: 50%;
+      margin-top:;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+
+
+
+</head>
+<body>
+  <!-- The map will be rendered inside this div -->
+  <div id="map"></div>
+
+  <script>
+    let map; // Global variable for the Google Map instance
+    let bridgeMarkers = []; // Store marker references for updating
+
+    // Hardcoded bridge locations and coordinates
+    // Each object contains the bridge name, location description, and its latitude/longitude
+    const localBridgeData = [
+      { name: "Bridge 1", location: "Lakeshore Rd. (St. Catharines)", lat: 43.21623852274046, lng: -79.2121272063928 },
+      { name: "Bridge 3A", location: "Carlton St. (St. Catharines)", lat: 43.191911962120976, lng: -79.20093237793138 },
+      { name: "Bridge 4", location: "Queenston St. (St. Catharines)", lat: 43.16599516348815, lng: -79.19444584468829 },
+      { name: "Bridge 5", location: "Glendale Ave. (St. Catharines)", lat: 43.14549183202389, lng: -79.1923500322874 },
+      { name: "Bridge 11", location: "Highway 20 (Thorold)", lat: 43.076878412812015, lng: -79.21046458925635 },
+      { name: "Bridge 19", location: "Main St. (Port Colborne)", lat: 42.90152711319618, lng: -79.24537865530645 },
+      { name: "Bridge 19A", location: "Mellanby Ave. (Port Colborne)", lat: 42.8965101134639, lng: -79.24656798681 },
+      { name: "Bridge 21", location: "Clarence St. (Port Colborne)", lat: 42.8867208876898, lng: -79.24838049606134 }
+    ];
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Returns a color string based on the bridge status
+    function getStatusColor(status) {
+      if (status === "Available") return "green";
+      if (status === "raising soon") return "yellow";
+      if (status && status.toLowerCase().includes("raised")) return "red";
+      if (status && status.toLowerCase().includes("closed")) return "red";
+      return "gray";
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Initializes the Google Map and loads bridge status data
+    function initMap() {
+      // Create the map centered on the canal area
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 43.160, lng: -79.246 },
+        zoom: 12,
+      });
+
+      // Initial load of bridge markers
+      updateBridgeMarkers();
+
+      // Refresh every 30 seconds to keep the map live
+      setInterval(updateBridgeMarkers, 30000);
+    }
+    ////////////////////////////////////////////////////////////////////////////////
+
+
+
+    ///////////////////////////////////////function-updateBridgeMarkers/////////////////////////////////////////////
+    // Fetches bridge status and updates markers on the map
+    function updateBridgeMarkers() {
+      // Fetch live bridge status data from the Canal Status API (using a CORS proxy)
+      fetch("https://corsproxy.io/?https://canalstatus.com/api/v1/bridges.json")
+        .then(res => res.json()) // Parse the response as JSON
+        .then(apiData => {
+          const bridges = apiData.bridges; // Array of bridge status objects from API
+          if (!Array.isArray(bridges)) {
+            throw new Error("bridges is not an array");
+          }
+
+          // Remove old markers from the map before adding new ones
+          bridgeMarkers.forEach(marker => marker.setMap(null));
+          bridgeMarkers = [];
+
+          // For each local bridge, find its status from the API by matching the name
+          localBridgeData.forEach(localBridge => {
+            // Find the corresponding bridge in the API data
+            const apiBridge = bridges.find(b => b.name === localBridge.name); // Match by name from given data to API data
+            // Use the API status if found, otherwise "Unknown"
+            let status;
+            //console.log(`Checking status for ${localBridge.name}`);
+            //console.log("API Bridge Data:", apiBridge);
+            if (apiBridge) {
+              // Some APIs use status.status
+              status = apiBridge.status.status;
+              console.log(`Found status for ${localBridge.name}: ${status}`);
+            } else {
+              status = "Unknown";
+            }
+            // Add a marker to the map for this bridge
+            addBridgeMarker({ ...localBridge, status });
+          });
+        })
+        .catch(err => console.error("Fetch error:", err)); // Log any fetch errors
+    }
+    ///////////////////////////////////////function-updateBridgeMarkers/////////////////////////////////////////////
+
+
+
+
+
+    ///////////////////////////////////////function-addBridgeMarker/////////////////////////////////////////////
+    // Adds a marker for a bridge to the map
+    function addBridgeMarker(bridge) {
+      const { name, status, lat, lng, location } = bridge;
+
+      console.log(`Adding marker for ${name} at (${lat}, ${lng}) with status ${status}`);
+
+      // Determine marker color based on bridge status
+      let color = getStatusColor(status);
+
+      // Create the marker on the map
+      const marker = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map,
+        title: `${name}: ${status}`,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE, // Use a circle icon
+          scale: 8,
+          fillColor: color,
+          fillOpacity: 0.8,
+          strokeColor: "white",
+          strokeWeight: 1
+        }
+      });
+
+      // Info window shows bridge details when marker is clicked
+      const infoWindow = new google.maps.InfoWindow({
+        content: `<strong>${name}</strong><br>Status: ${status}<br><em>${location}</em>`
+      });
+
+      // Open info window on marker click
+      marker.addListener("click", () => {
+        infoWindow.open(map, marker);
+      });
+
+      // Store marker reference for later removal/update
+      bridgeMarkers.push(marker);
+    }
+    ///////////////////////////////////////function-addBridgeMarker/////////////////////////////////////////////
+
+  </script>
+
+  <!-- Load the Google Maps JavaScript API and call initMap when ready -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVo-P4-4DqOBUsNUZSwZ6fuJ2p20RQOZo&callback=initMap"
+    async defer
+  ></script>
+</body>
+</html>
