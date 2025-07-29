@@ -219,11 +219,12 @@ function trackUserLocation() {
     ///////////////////////////////////////function-addBridgeMarker/////////////////////////////////////////////
 
   </script>
+<script src="config.js"></script>
+<script>
+  document.write(
+    `<script src="https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap" async defer><\/script>`
+  );
+</script>
 
-  <!-- Load the Google Maps JavaScript API and call initMap when ready -->
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTd9qqK8mjmeabaQl5a1toTl_0ddrwL2Q&callback=initMap"
-    async defer
-  ></script>
 </body>
 </html>
