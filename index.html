@@ -12,7 +12,6 @@
     #map {
       height: 50%;
       width: 50%;
-      margin-top:;
       margin: auto;
       display: flex;
       justify-content: center;
@@ -50,7 +49,7 @@
     function getStatusColor(status) {
       if (status === "Available") return "green";
       if (status === "raising soon") return "yellow";
-      if (status && status.toLowerCase().includes("raised")) return "red";
+      if (status && (status.toLowerCase().includes("raised") || status.toLowerCase().includes("raising"))) return "red";
       if (status && status.toLowerCase().includes("closed")) return "red";
       return "gray";
     }
@@ -59,6 +58,52 @@
 
 
 
+let userMarker = null; // Store the user location marker
+
+function trackUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.watchPosition(
+      (position) => {
+        const userPos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+
+        // If marker exists, move it; otherwise create it
+        if (userMarker) {
+          userMarker.setPosition(userPos);
+        } else {
+          userMarker = new google.maps.Marker({
+            position: userPos,
+            map,
+            title: "Your Current Location",
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: "#4285F4",
+              fillOpacity: 1,
+              strokeColor: "white",
+              strokeWeight: 2,
+            },
+          });
+        }
+
+        // Optionally center the map on the user
+        map.setCenter(userPos);
+      },
+      (error) => {
+        console.warn("Geolocation error:", error.message);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0,
+      }
+    );
+  } else {
+    console.warn("Geolocation is not supported by this browser.");
+  }
+}
 
     ////////////////////////////////////////////////////////////////////////////////
     // Initializes the Google Map and loads bridge status data
@@ -67,13 +112,24 @@
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 43.160, lng: -79.246 },
         zoom: 12,
+        disableDefaultUI: true,
+        styles: [
+          { featureType: "poi", elementType: "all", stylers: [{ visibility: "off" }] },
+          { featureType: "transit", elementType: "all", stylers: [{ visibility: "off" }] },
+          { featureType: "road", elementType: "labels.icon", stylers: [{ visibility: "off" }] }
+        ]
       });
+
+
 
       // Initial load of bridge markers
       updateBridgeMarkers();
 
       // Refresh every 30 seconds to keep the map live
       setInterval(updateBridgeMarkers, 30000);
+
+        trackUserLocation(); // <--- Start tracking here
+
     }
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -166,7 +222,7 @@
 
   <!-- Load the Google Maps JavaScript API and call initMap when ready -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVo-P4-4DqOBUsNUZSwZ6fuJ2p20RQOZo&callback=initMap"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTd9qqK8mjmeabaQl5a1toTl_0ddrwL2Q&callback=initMap"
     async defer
   ></script>
 </body>
