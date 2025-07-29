@@ -49,8 +49,8 @@
     function getStatusColor(status) {
       if (status === "Available") return "green";
       if (status === "raising soon") return "yellow";
-      if (status && (status.toLowerCase().includes("raised") || status.toLowerCase().includes("raising"))) return "red";
-      if (status && status.toLowerCase().includes("closed")) return "red";
+      if (status === "lowering") return "purple";
+      if (status && (status.toLowerCase().includes("raised") || status.toLowerCase().includes("raising")||status && status.toLowerCase().includes("closed"))) return "red";
       return "gray";
     }
     ////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +224,16 @@ function trackUserLocation() {
   async
   defer
 ></script>
-
-
+  <p style="text-align: center; font-size: 16px; color: #333;">
+    <strong>Bridge Status Visualizer</strong><br>
+    Click on a bridge marker to see its status and location.
+  </p>
+  <p style="text-align: center; font-size: 14px; color: #555;">
+    The map shows the current status of bridges along the Welland Canal.
+  </p>
+<p style="color:#555; font-size: 14px;"></p>
+  🟢 Bridge open &nbsp;&nbsp; 🔴 Bridge closed &nbsp;&nbsp; 🟡 Bridge Raising &nbsp;&nbsp; 
+  🟣 Lowering &nbsp;&nbsp; 🔵 You are here
+</p>
 </body>
 </html>
