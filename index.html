@@ -88,8 +88,6 @@ function trackUserLocation() {
           });
         }
 
-        // Optionally center the map on the user
-        map.setCenter(userPos);
       },
       (error) => {
         console.warn("Geolocation error:", error.message);
