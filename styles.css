@@ -261,3 +261,43 @@ margin-left: 75px;
   letter-spacing: 1px;
   color: #F3F2EC;
 }
+
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    font-size: 7px;
+
+  }
+
+  .site-title {
+    margin-left: 0;
+    margin-bottom: 10px;
+      font-size: 7px;
+
+  }
+
+  .menu-btn {
+    margin-right: 0;
+    margin-bottom: 10px;
+        font-size: 7px;
+
+  }
+
+  #map {
+    height: 50vh; /* Adjusted for smaller screens */
+  }
+
+  .sidebar {
+    width: 200px; /* Adjusted width for smaller screens */
+  }
+
+  .sidebar a {
+    font-size: 7px; /* Smaller font size for sidebar links */
+  }
+
+  .close-btn {
+    font-size: 7px; /* Smaller font size for close button */
+  }
+}
