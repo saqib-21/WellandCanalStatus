@@ -264,22 +264,22 @@ margin-left: 75px;
 
 
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: center;
-    font-size: 7px;
 
+  .logo {
+
+    margin-left: 10px; /* Adjusted for smaller screens */
   }
 
   .site-title {
     margin-left: 0;
+    margin-right: 10px;
     margin-bottom: 10px;
-      font-size: 7px;
+      font-size: 10px;
 
   }
 
   .menu-btn {
-    margin-right: 0;
+    margin-right:30px;
     margin-bottom: 10px;
         font-size: 7px;
 
