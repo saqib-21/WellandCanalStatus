@@ -263,6 +263,29 @@ margin-left: 75px;
 }
 
 
+#recenter-btn {
+  position: absolute;
+  bottom: 100px;
+  right: 20px;
+  z-index: 1000;
+  padding: 10px 20px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: #035379;
+  color: #F3F2EC;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+#recenter-btn:hover {
+  background-color: #F3F2EC;
+  color: #035379;
+}
+
+
 @media (max-width: 768px) {
 
   .logo {
