@@ -264,7 +264,8 @@ margin-left: 75px;
 
 
 #recenter-btn {
-  position: absolute;
+  position: center;
+
   bottom: 100px;
   right: 20px;
   z-index: 1000;
@@ -306,6 +307,11 @@ margin-left: 75px;
     margin-bottom: 10px;
         font-size: 7px;
 
+  }
+
+  .bridge-legend {
+    padding: 10px;
+    font-size: 12px; /* Smaller font size for legend */
   }
 
   #map {

@@ -14,6 +14,8 @@ let bridgeMarkers = []; // Store marker references for updating
 let userMarker = null; // Store the user location marker
 let userPos = null;
 let initialCentered = false;
+
+
 // Hardcoded bridge locations and coordinates
 const localBridgeData = [
   { name: "Bridge 1", location: "Lakeshore Rd. (St. Catharines)", lat: 43.21623852274046, lng: -79.2121272063928 },
@@ -42,7 +44,7 @@ function trackUserLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.watchPosition(
       (position) => {
-        const userPos = {
+         userPos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
@@ -112,20 +114,24 @@ function initMap() {
   trackUserLocation();
 
 
-  // Recenter button click event
-document.addEventListener("DOMContentLoaded", () => {
-  const recenterBtn = document.getElementById("recenter-btn");
-  if (recenterBtn) {
-    recenterBtn.addEventListener("click", () => {
-      if (userPos) {
-        map.setCenter(userPos);
-        map.setZoom(14); // Optional
-      }
-    });
-  }
-});
+
 
 }
+
+
+
+  // Recenter button click event
+    document.addEventListener("DOMContentLoaded", () => {
+    const recenterBtn = document.getElementById("recenter-btn");
+    if (recenterBtn) {
+        recenterBtn.addEventListener("click", () => {
+        if (userPos) {
+            map.setCenter(userPos);
+            map.setZoom(11); // Optional
+        }
+        });
+    }
+});
 
 // Fetches bridge status and updates markers on the map
 function updateBridgeMarkers() {
