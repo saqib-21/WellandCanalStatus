@@ -286,7 +286,6 @@ margin-left: 75px;
   color: #035379;
 }
 
-
 @media (max-width: 768px) {
 
   .logo {
@@ -309,9 +308,15 @@ margin-left: 75px;
 
   }
 
-  .bridge-legend {
-    padding: 10px;
-    font-size: 12px; /* Smaller font size for legend */
+  .bridge-status {
+    
+    display: flex;
+    flex-direction: column;
+  }
+  .status-open,  .status-closed,
+  .status-raising, .status-lowering {
+    text-align: left;
+    font-size: 14px; /* Smaller font size for bridge status */
   }
 
   #map {
