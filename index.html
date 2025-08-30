@@ -14,13 +14,13 @@
 
     <img src="logo.png" alt="Welland Canal Logo" class="logo">
     <div class="site-title">Welland Canal Bridge Status</div>
-    <button class="menu-btn" onclick="openSidebar()">Menu</button>
+    <button class="menu-btn">Menu</button>
   </header>
 
 
     <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="closeSidebar()">Close</button>
+    <button class="close-btn">Close</button>
         <div class="sidebar-links">
         <a href="index.html">Home</a>
         <a href="underConstruction.html">underConstruction</a>
@@ -30,14 +30,14 @@
 
  
     <!-- Overlay -->
-    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+  <div id="overlay" class="overlay"></div>
 
   <div class="page-wrapper">
 
     <!-- The map will be rendered inside this div -->
     <div id="map"></div>
 
-    <script src="script.js"></script>
+  <script type="module" src="js/main.js"></script>
 
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1vJCiM2x7sfljzSgeBh7XV5gdvFJAAE4&callback=initMap"
