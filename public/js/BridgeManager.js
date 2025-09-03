@@ -11,7 +11,7 @@ export default class BridgeManager {
   // Returns a color string based on the bridge status
 getStatusColor(status) {
   const s = (status || "").toLowerCase();
-  if (s=== ("available")) return "green";
+  if (s===("available")) return "green";
   if (s.includes("raising soon")) return "yellow";
   if (s.includes("lowering")) return "purple";
   if (s.includes("unavailable") || s.includes("raised") || s.includes("closed")) {
