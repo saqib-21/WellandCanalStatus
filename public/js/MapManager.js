@@ -15,6 +15,8 @@ export default class MapManager {
     this.map = new google.maps.Map(document.getElementById(this.mapElementId), {
       center: { lat: 43.160, lng: -79.246 },
       zoom: 12,
+
+      // Disable default UI for a cleaner look
       disableDefaultUI: true,
       gestureHandling: "greedy",
       styles: [

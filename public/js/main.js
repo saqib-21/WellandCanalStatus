@@ -8,13 +8,17 @@ import BridgeManager from "./BridgeManager.js";
 
 // Hardcoded bridge locations and coordinates
 const localBridgeData = [
-  { name: "Lakeshore Rd (Bridge 1)", location: "Lakeshore Rd. (St. Catharines)", lat: 43.21623852274046, lng: -79.2121272063928 },
-  { name: "Carlton St. (Bridge 3A)", location: "Carlton St. (St. Catharines)", lat: 43.191911962120976, lng: -79.20093237793138 },
-  { name: "Queenston St. (Bridge 4)", location: "Queenston St. (St. Catharines)", lat: 43.16599516348815, lng: -79.19444584468829 },
-  { name: "Glendale Ave (Bridge 5)", location: "Glendale Ave. (St. Catharines)", lat: 43.14549183202389, lng: -79.1923500322874 },
-  { name: "Highway 20 (Bridge 11)", location: "Highway 20 (Thorold)", lat: 43.076878412812015, lng: -79.21046458925635 }
-  // Remove Bridge 19, 19A, 21 since they're not on the St. Catharines/Thorold page
+  { name: "Bridge 1", location: "Lakeshore Rd. (St. Catharines)", lat: 43.21623852274046, lng: -79.2121272063928 },
+  { name: "Bridge 3A", location: "Carlton St. (St. Catharines)", lat: 43.191911962120976, lng: -79.20093237793138 },
+  { name: "Bridge 4", location: "Queenston St. (St. Catharines)", lat: 43.16599516348815, lng: -79.19444584468829 },
+  { name: "Bridge 5", location: "Glendale Ave. (St. Catharines)", lat: 43.14549183202389, lng: -79.1923500322874 },
+  { name: "Bridge 11", location: "Highway 20 (Thorold)", lat: 43.076878412812015, lng: -79.21046458925635 },
+  { name: "Bridge 19", location: "Main St. (Port Colborne)", lat: 42.90152711319618, lng: -79.24537865530645 },
+  { name: "Bridge 19A", location: "Mellanby Ave. (Port Colborne)", lat: 42.8965101134639, lng: -79.24656798681 },
+  { name: "Bridge 21", location: "Clarence St. (Port Colborne)", lat: 42.8867208876898, lng: -79.24838049606134 }
 ];
+
+
 // Initialize app after DOM load
 document.addEventListener("DOMContentLoaded", () => {
   // Sidebar
@@ -26,7 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Map + Bridges
   const mapManager = new MapManager("map");
   const map = mapManager.initMap();
-  const bridgeService = new BridgeService("https://corsproxy.io/?https://canalstatus.com/api/v1/bridges.json");
+  window.initMap = () => mapManager.initMap();
+  const bridgeService = new BridgeService("/api/bridges");
   const bridgeManager = new BridgeManager(map, localBridgeData);
 
   // Update bridge markers initially and every 30s

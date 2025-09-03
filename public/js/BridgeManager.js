@@ -10,12 +10,11 @@ export default class BridgeManager {
 
   // Returns a color string based on the bridge status
 getStatusColor(status) {
-  if (status.toLowerCase().includes("available")) return "green";
-  if (status.toLowerCase().includes("raising soon")) return "yellow";
-  if (status.toLowerCase().includes("lowering")) return "purple";
-  if (status.toLowerCase().includes("unavailable") || 
-      status.toLowerCase().includes("raised") || 
-      status.toLowerCase().includes("closed")) {
+  const s = (status || "").toLowerCase();
+  if (s=== ("available")) return "green";
+  if (s.includes("raising soon")) return "yellow";
+  if (s.includes("lowering")) return "purple";
+  if (s.includes("unavailable") || s.includes("raised") || s.includes("closed")) {
     return "red";
   }
   return "gray";
@@ -30,10 +29,13 @@ getStatusColor(status) {
   // Updates markers based on latest API data
   updateMarkers(apiBridges) {
     this.clearMarkers();
-
     this.localBridgeData.forEach(localBridge => {
-      const apiBridge = apiBridges.find(b => b.name === localBridge.name);
-      const status = apiBridge ? apiBridge.status.status : "Unknown";
+      const apiBridge = apiBridges.find(b => {
+      const a = (b.name || "").toLowerCase();
+      const l = (localBridge.name || "").toLowerCase();
+      return a.includes(l) || l.includes(a);
+    });
+      const status = apiBridge ? (apiBridge.status || "Unknown") : "Unknown";
       this.addMarker({ ...localBridge, status });
     });
   }

@@ -32,7 +32,7 @@ const localBridgeData = [
 function getStatusColor(status) {
   if (status === "Available") return "green";
   if (status === "raising soon") return "yellow";
-  if (status === "lowering") return "purple";
+  if (status && (status.toLowerCase().includes("lowering"))) return "purple";
   if (status && (status.toLowerCase().includes("raised") || status.toLowerCase().includes("raising") || status.toLowerCase().includes("closed"))) {
     return "red";
   }

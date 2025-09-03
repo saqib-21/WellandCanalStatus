@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Bridge Status Visualizer</title>
+  <title>Welland Canal Bridge Status</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,14 +11,16 @@
 
     <!-- Header -->
   <header>
-    <div class="site-title">Welland Canal Bridge Status Visualizer</div>
-    <button class="menu-btn" onclick="openSidebar()">Menu</button>
+
+    <img src="logo.png" alt="Welland Canal Logo" class="logo">
+    <div class="site-title">Welland Canal Bridge Status</div>
+    <button class="menu-btn">Menu</button>
   </header>
 
 
     <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
-    <button class="close-btn" onclick="closeSidebar()">Close</button>
+    <button class="close-btn">Close</button>
         <div class="sidebar-links">
         <a href="index.html">Home</a>
         <a href="underConstruction.html">underConstruction</a>
@@ -28,9 +30,16 @@
 
  
     <!-- Overlay -->
-    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+  <div id="overlay" class="overlay"></div>
 
-    <script src="script.js"></script>
+  <div class="page-wrapper">
+
+    <!-- The map will be rendered inside this div -->
+    <div id="map"></div>
+
+    <script type="module" src="js/main.js"></script>
+
+
 
 </body>
 </html>
