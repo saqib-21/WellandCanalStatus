@@ -18,6 +18,7 @@ const cache = {
 };
 const TTL_MS = 20 * 1000; // 20s cache
 
+// Scrapes bridge status from the given URL
 async function scrapeBridgeStatus(url) {
   const res = await fetch(url, {
     headers: {
@@ -37,6 +38,7 @@ async function scrapeBridgeStatus(url) {
 
   const bridges = [];
   for (let i = 0; i < lines.length; i++) {
+    // Match lines like  "Lakeshore Rd. (Bridge 1) using regex"
     const m = lines[i].match(/^(.+?)\s*\(Bridge\s*([0-9]+[A-Za-z]?)\)$/);
     if (m) {
       const name = `${m[1].trim()} (Bridge ${m[2]})`;
@@ -47,11 +49,16 @@ async function scrapeBridgeStatus(url) {
   return bridges;
 }
 
+// Caches and returns bridge data for a given key and URL
 async function getCached(key, url) {
-  const now = Date.now();
+  const now = Date.now();//Current timestamp
+
+  // Return cached data if valid and not stale
+  //Less than 20 seconds old
   if (cache[key].data && now - cache[key].ts < TTL_MS) {
     return cache[key].data;
   }
+  // Otherwise, scrape fresh data and update cache
   const data = await scrapeBridgeStatus(url);
   cache[key] = { data, ts: now };
   return data;
@@ -60,10 +67,12 @@ async function getCached(key, url) {
 // Niagara (St. Catharines / Thorold)
 app.get("/api/bridges/niagara", async (req, res) => {
   try {
+    // Scrape and cache Niagara bridges
     const bridges = await getCached(
       "niagara",
       "https://seaway-greatlakes.com/bridgestatus/detailsnai?key=BridgeSCT"
     );
+    // Return JSON response
     res.json({ bridges });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -74,9 +83,11 @@ app.get("/api/bridges/niagara", async (req, res) => {
 app.get("/api/bridges/portcolborne", async (req, res) => {
   try {
     const bridges = await getCached(
+        // Scrape and cache Niagara bridges
       "portcolborne",
       "https://seaway-greatlakes.com/bridgestatus/detailsnai?key=BridgePC"
     );
+      // Return JSON response
     res.json({ bridges });
   } catch (e) {
     res.status(500).json({ error: e.message });
@@ -97,7 +108,7 @@ app.get("/api/bridges", async (req, res) => {
 });
 
 // Health check
-app.get("/healthz", (_req, res) => res.send("ok"));
+app.get("/health", (_req, res) => res.send("ok"));
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
