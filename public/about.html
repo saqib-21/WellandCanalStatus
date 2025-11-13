@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - Welland Canal Bridge Status</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #035379 0%, #024a63 100%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      padding: 8px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .back-btn {
+      background: white;
+      color: #035379;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      background: #035379;
+      color: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    .content-section {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #fff;
+      border-bottom: 3px solid #10b981;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 24px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: #10b981;
+    }
+
+    p, li {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+    }
+
+    .tech-stack {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .tech-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      border-left: 4px solid #10b981;
+    }
+
+    .tech-item h4 {
+      color: #10b981;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.3);
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      main {
+        padding: 30px 20px;
+      }
+
+      .content-section {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-section">
+      <img src="logo.png" alt="Bridge Logo" class="logo">
+      <h1>About This Project</h1>
+    </div>
+    <a href="/" class="back-btn">← Back to Map</a>
+  </header>
+
+  <main>
+    <div class="content-section">
+      <h2>🌉 Project Overview</h2>
+      <p>
+        The Welland Canal Bridge Status Visualizer provides real-time bridge status updates using live data 
+        from the official Seaway website. This tool was built to solve a personal problem that affects 
+        100+ local commuters daily.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2>🎯 The Problem</h2>
+      <ul>
+        <li>Lift bridges across the Welland Canal frequently open for ship traffic, causing unexpected delays</li>
+        <li>Local commuters often get stuck waiting, making them late for work, school, or appointments</li>
+        <li>Existing information sites only show road names without maps, confusing tourists and visitors</li>
+        <li>Official updates are text-heavy and not mobile-friendly</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>💡 The Solution</h2>
+      <ul>
+        <li><strong>Real-time Interactive Map:</strong> See all bridge statuses at a glance with color-coded markers</li>
+        <li><strong>User Location Tracking:</strong> Instantly see which bridges are closest to you</li>
+        <li><strong>Fast Updates:</strong> Bridge data refreshes every 30 seconds with smart caching</li>
+        <li><strong>Mobile-Friendly Design:</strong> Works seamlessly on all devices</li>
+        <li><strong>Tourist-Friendly:</strong> Visual map helps visitors navigate without knowing road names</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>🛠️ Technologies Used</h2>
+      <div class="tech-stack">
+        <div class="tech-item">
+          <h4>Frontend</h4>
+          <p>React 18, Tailwind CSS, Google Maps API</p>
+        </div>
+        <div class="tech-item">
+          <h4>Backend</h4>
+          <p>Node.js, Express, Cheerio (web scraping)</p>
+        </div>
+        <div class="tech-item">
+          <h4>Architecture</h4>
+          <p>OOP with SOLID principles, Service layer pattern</p>
+        </div>
+        <div class="tech-item">
+          <h4>Deployment</h4>
+          <p>Render (cloud hosting)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <h2>🏗️ How It Works</h2>
+      <h3>1. Data Collection (Backend)</h3>
+      <p>
+        The Node.js server scrapes bridge status data from the official Seaway website every 20 seconds 
+        and caches it in memory to reduce load on the source.
+      </p>
+
+      <h3>2. API Endpoint</h3>
+      <p>
+        Express server provides a REST API (<code>/api/bridges</code>) that combines data from 
+        St. Catharines/Thorold and Port Colborne regions.
+      </p>
+
+      <h3>3. Frontend Display (React)</h3>
+      <p>
+        The React app fetches bridge data every 30 seconds and displays it on an interactive Google Map 
+        with color-coded markers:
+      </p>
+      <ul>
+        <li>🟢 <strong>Green:</strong> Bridge is open and available</li>
+        <li>🔴 <strong>Red:</strong> Bridge is closed/raised</li>
+        <li>🟡 <strong>Yellow:</strong> Bridge is raising soon</li>
+        <li>🟣 <strong>Purple:</strong> Bridge is lowering</li>
+        <li>🔵 <strong>Blue:</strong> Your current location</li>
+      </ul>
+
+      <h3>4. User Location</h3>
+      <p>
+        The app uses the browser's Geolocation API to track your position in real-time, 
+        helping you see which bridges are nearby and plan your route accordingly.
+      </p>
+    </div>
+
+    <div class="content-section">
+      <h2>📚 Learning Outcomes</h2>
+      <ul>
+        <li><strong>Backend Development:</strong> REST API design, web scraping, caching strategies</li>
+        <li><strong>Frontend Development:</strong> React hooks, Google Maps integration, real-time geolocation</li>
+        <li><strong>Software Architecture:</strong> OOP principles, SOLID design patterns, service layers</li>
+        <li><strong>Deployment:</strong> Cloud hosting, API key management, production optimization</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>🔮 Future Enhancements</h2>
+      <ul>
+        <li>Expand coverage to more lift bridges across Ontario and Canada</li>
+        <li>Push notifications when nearby bridges are opening/closing</li>
+        <li>Native mobile apps (iOS/Android)</li>
+        <li>User accounts to save favorite bridges</li>
+        <li>Analytics dashboard showing bridge usage patterns</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h2>👨‍💻 Developer</h2>
+      <p>
+        Built by a local commuter frustrated with bridge delays. This project demonstrates 
+        full-stack development skills while solving a real community problem.
+      </p>
+      <p>
+        <strong>GitHub:</strong> <a href="https://github.com/saqib-21/WellandCanalStatus" style="color: #10b981;">github.com/saqib-21/WellandCanalStatus</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 Bridge Status Visualizer
+  </footer>
+</body>
+</html>

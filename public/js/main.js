@@ -50,7 +50,7 @@ window.initMap = () => {
   }
 };
 
-// ✅ If the Google script finished before this module ran, start now.
+//If the Google script finished before this module ran, start now.
 if (window.google && window.google.maps) {
   window.initMap();
 }
