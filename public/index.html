@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  
   <meta charset="UTF-8">
   <title>Welland Canal Bridge Status</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -264,7 +272,7 @@
           bridgeManagerRef.current.initializeMarkers();
           mapManagerRef.current.startTracking();
           
-          // ✅ Fetch data immediately (faster loading)
+          // Fetch data immediately (faster loading)
           fetchBridgeData();
         };
 
@@ -408,6 +416,7 @@
         </div>
       );
     };
+    
 
     ReactDOM.render(<WellandCanalApp />, document.getElementById('root'));
   </script>
