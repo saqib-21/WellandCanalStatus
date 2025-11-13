@@ -110,6 +110,12 @@ app.get("/api/bridges", async (req, res) => {
 // Health check
 app.get("/health", (_req, res) => res.send("ok"));
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  // Local dev: `npm start`
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+  });
+}
+
+// For Vercel
+module.exports = app;
