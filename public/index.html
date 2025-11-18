@@ -396,17 +396,32 @@
             )}
 
             {/* Floating Bridge Selector */}
-            <div className="absolute bottom-4 left-4 md:left-6 bg-white p-3 rounded-xl shadow-lg z-20">
-              <select 
-                value={selectedBridge}
-                onChange={(e) => goToBridge(e.target.value)}
-                className="p-2 rounded-lg border font-semibold text-[#035379]"
-              >
-                <option value="" disabled>Select a Bridge</option>
-                {BRIDGE_DATA.map((b) => (
-                  <option key={b.name} value={b.name}>{b.name}</option>
-                ))}
-              </select>
+            <div className="absolute bottom-4 left-4 md:left-6 z-20">
+              <div className="md:hidden">
+                <select 
+                  value={selectedBridge}
+                  onChange={(e) => goToBridge(e.target.value)}
+                  className="p-1 text-xs rounded-full border font-semibold text-[#035379]"
+                >
+                  <option value="" disabled>Bridge</option>
+                  {BRIDGE_DATA.map((b) => (
+                    <option key={b.name} value={b.name}>{b.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="hidden md:block bg-white p-3 rounded-xl shadow-lg">
+                <select 
+                  value={selectedBridge}
+                  onChange={(e) => goToBridge(e.target.value)}
+                  className="p-2 rounded-lg border font-semibold text-[#035379]"
+                >
+                  <option value="" disabled>Select a Bridge</option>
+                  {BRIDGE_DATA.map((b) => (
+                    <option key={b.name} value={b.name}>{b.name}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* Floating Recenter Button - Google Maps Style */}
