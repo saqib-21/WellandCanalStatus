@@ -43,6 +43,21 @@
       background-size: 200% 200%;
       animation: gradient 8s ease infinite;
     }
+
+    /* Floating button style */
+    .floating-button {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .floating-button:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transform: scale(1.05);
+    }
+
+    .floating-button:active {
+      transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
@@ -234,7 +249,7 @@
     );
 
     const Navigation = () => (
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
         <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
       </svg>
     );
@@ -243,6 +258,7 @@
     const WellandCanalApp = () => {
       const [sidebarOpen, setSidebarOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
+      const [selectedBridge, setSelectedBridge] = useState("");
       const mapRef = useRef(null);
       const googleMapRef = useRef(null);
       const mapManagerRef = useRef(null);
@@ -272,7 +288,6 @@
           bridgeManagerRef.current.initializeMarkers();
           mapManagerRef.current.startTracking();
           
-          // Fetch data immediately (faster loading)
           fetchBridgeData();
         };
 
@@ -310,11 +325,24 @@
         if (mapManagerRef.current) {
           mapManagerRef.current.recenter();
         }
+        setSelectedBridge("");
       };
+
+      const goToBridge = (bridgeName) => {
+        setSelectedBridge(bridgeName);
+
+        const bridge = BRIDGE_DATA.find(b => b.name === bridgeName);
+        if (!bridge || !googleMapRef.current) return;
+
+        googleMapRef.current.panTo({ lat: bridge.lat, lng: bridge.lng });
+        googleMapRef.current.setZoom(14);
+      };
+
+
 
       return (
         <div className="flex flex-col h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-          {/* Header with animated gradient */}
+          {/* Header */}
           <header className="animated-gradient text-white px-4 py-3 flex items-center justify-between fixed top-0 left-0 right-0 z-50 shadow-lg">
             <div className="flex items-center gap-3">
               <div className="logo-section flex items-center gap-4">
@@ -334,7 +362,7 @@
             </button>
           </header>
 
-          {/* Sidebar with glass effect */}
+          {/* Sidebar */}
           <div className={`fixed top-0 right-0 w-64 h-full animated-gradient text-white shadow-2xl z-50 transition-transform duration-300 ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'}`}>
             <button
               onClick={() => setSidebarOpen(false)}
@@ -356,58 +384,73 @@
             <div onClick={() => setSidebarOpen(false)} className="fixed inset-0 bg-black bg-opacity-50 z-40 backdrop-blur-sm" />
           )}
 
-          {/* Map */}
+          {/* Map Container with Floating Button */}
           <div className="flex-1 mt-16 relative">
             <div ref={mapRef} className="w-full h-full" />
+            
+            {/* Loading Indicator */}
             {isLoading && (
-              <div className="absolute top-4 left-1/2 -translate-x-1/2 glass rounded-xl px-6 py-3 text-[#035379] font-bold shadow-lg">
+              <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-white rounded-xl px-6 py-3 text-[#035379] font-bold shadow-lg">
                 Loading bridge data...
               </div>
             )}
+
+            {/* Floating Bridge Selector */}
+            <div className="absolute bottom-4 left-4 md:left-6 bg-white p-3 rounded-xl shadow-lg z-20">
+              <select 
+                value={selectedBridge}
+                onChange={(e) => goToBridge(e.target.value)}
+                className="p-2 rounded-lg border font-semibold text-[#035379]"
+              >
+                <option value="" disabled>Select a Bridge</option>
+                {BRIDGE_DATA.map((b) => (
+                  <option key={b.name} value={b.name}>{b.name}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Floating Recenter Button - Google Maps Style */}
+            <button
+              onClick={recenterMap}
+                className="floating-button absolute bottom-4 right-4 md:right-6 bg-white text-[#035379] p-3 rounded-full hover:bg-gray-50 z-10"
+              title="Recenter on my location"
+            >
+              <Navigation />
+            </button>
           </div>
 
-            {/* Legend with modern styling */}
-            <div className="bg-white border-t-4 border-[#10b981] px-6 py-5 flex justify-center">
-            <div className="max-w-4xl mx-auto w-full">
-              <div className="flex justify-center mb-4">
-              <button
-                onClick={recenterMap}
-                className="bg-gradient-to-r from-[#035379] to-[#024a63] text-white px-8 py-3 rounded-full font-bold text-sm hover:shadow-xl hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 shadow-lg"
-              >
-                <Navigation />
-                Recenter on My Location
-              </button>
-              </div>
-
+          {/* Legend */}
+          <div className="bg-white border-t-4 border-[#10b981] px-6 py-5">
+            <div className="max-w-4xl mx-auto">
               <p className="font-bold uppercase text-base mb-3 text-[#035379] text-center">Welland Canal Bridge Legend</p>
               <p className="text-sm text-gray-600 mb-4 text-center">
-              Click on a bridge marker to see its status and location.
+                Click on a bridge marker to see its status and location.
               </p>
 
               <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold">
-              <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                <span className="w-5 h-5 rounded-full bg-green-500 shadow-md"></span>
-                Open
-              </span>
-              <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                <span className="w-5 h-5 rounded-full bg-red-500 shadow-md"></span>
-                Closed
-              </span>
-              <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                <span className="w-5 h-5 rounded-full bg-yellow-400 shadow-md"></span>
-                Raising Soon
-              </span>
-              <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                <span className="w-5 h-5 rounded-full bg-purple-500 shadow-md"></span>
-                Lowering
-              </span>
-              <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                <span className="w-5 h-5 rounded-full bg-blue-500 shadow-md"></span>
-                You Are Here
-              </span>
+                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="w-5 h-5 rounded-full bg-green-500 shadow-md"></span>
+                  Open
+                </span>
+                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="w-5 h-5 rounded-full bg-red-500 shadow-md"></span>
+                  Closed
+                </span>
+                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="w-5 h-5 rounded-full bg-yellow-400 shadow-md"></span>
+                  Raising Soon
+                </span>
+                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="w-5 h-5 rounded-full bg-purple-500 shadow-md"></span>
+                  Lowering
+                </span>
+                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="w-5 h-5 rounded-full bg-blue-500 shadow-md"></span>
+                  You Are Here
+                </span>
               </div>
             </div>
-            </div>
+          </div>
 
           {/* Footer */}
           <footer className="animated-gradient text-white text-center py-4 text-xs font-bold uppercase tracking-wide">
@@ -417,7 +460,6 @@
       );
     };
     
-
     ReactDOM.render(<WellandCanalApp />, document.getElementById('root'));
   </script>
 </body>
