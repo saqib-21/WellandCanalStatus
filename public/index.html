@@ -259,13 +259,29 @@
       const [sidebarOpen, setSidebarOpen] = useState(false);
       const [isLoading, setIsLoading] = useState(true);
       const [selectedBridge, setSelectedBridge] = useState("");
+      const [apiKey, setApiKey] = useState(null);
       const mapRef = useRef(null);
       const googleMapRef = useRef(null);
       const mapManagerRef = useRef(null);
       const bridgeManagerRef = useRef(null);
       const bridgeServiceRef = useRef(null);
+      // Fetch API key from backend
+      useEffect(() => {
+        const fetchApiKey = async () => {
+          try {
+            const res = await fetch('/api/maps-config');
+            const data = await res.json();
+            setApiKey(data.apiKey);
+          } catch (err) {
+            console.error("Failed to fetch API key:", err);
+          }
+        };
+        fetchApiKey();
+      }, []);
 
       useEffect(() => {
+         if (!apiKey) return; 
+         
         const initMap = () => {
           if (!window.google || !mapRef.current) return;
 
@@ -295,7 +311,7 @@
           initMap();
         } else {
           const script = document.createElement('script');
-          script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC1vJCiM2x7sfljzSgeBh7XV5gdvFJAAE4`;
+          script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`;
           script.async = true;
           script.onload = initMap;
           document.head.appendChild(script);
@@ -306,7 +322,7 @@
             mapManagerRef.current.stopTracking();
           }
         };
-      }, []);
+      }, [apiKey]);
 
       const fetchBridgeData = useCallback(async () => {
         if (!bridgeServiceRef.current || !bridgeManagerRef.current) return;

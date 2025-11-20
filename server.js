@@ -1,15 +1,23 @@
 // server.js (CommonJS)
+require('dotenv').config(); // Load environment variables from .env
+
 const express = require("express");
 const fetch = require("node-fetch");         
 const cheerio = require("cheerio");
 const path = require("path");
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Serve the frontend
 app.use(express.static(path.join(__dirname, "public")));
+
+// NEW: Endpoint to serve Google Maps API key
+app.get("/api/maps-config", (req, res) => {
+  res.json({
+    apiKey: process.env.GOOGLE_MAPS_API_KEY || ''
+  });
+});
 
 // Simple in-memory cache (reduce scraping load)
 const cache = {
