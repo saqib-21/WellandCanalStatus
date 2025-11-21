@@ -2,15 +2,48 @@
 <html lang="en">
 <head>
 
-    <script>
-    window.va = window.va || function () {
-      (window.vaq = window.vaq || []).push(arguments);
-    };
+  <script>
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
   
   <meta charset="UTF-8">
-  <title>Welland Canal Bridge Status</title>
+
+  <title>Welland Canal Bridge Status | Real-Time Bridge Lift Map</title>
+  <meta name="description" content="Live Welland Canal bridge status for St. Catharines, Thorold, Welland, and Port Colborne. Real-time map showing which bridges are up, down, or raising soon. Updated automatically for commuters.">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://www.bridgestatus.ca/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Welland Canal Bridge Status">
+  <meta property="og:description" content="Real-time Welland Canal bridge lift status. Avoid delays by checking live bridge states.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.bridgestatus.ca/">
+  <meta property="og:image" content="https://www.bridgestatus.ca/preview.png">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Welland Canal Bridge Status">
+  <meta name="twitter:description" content="Real-time bridge lift status along the Welland Canal.">
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Welland Canal Bridge Status",
+    "url": "https://www.bridgestatus.ca/",
+    "applicationCategory": "TrafficMonitoring",
+    "description": "Live Welland Canal bridge status updated continuously for commuters.",
+    "operatingSystem": "Web"
+  }
+  </script>
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -25,7 +58,7 @@
     }
     
     /*SEO*/
-    
+
     /*Glass morphism effect */
     .glass {
       background: rgba(255, 255, 255, 0.1);
@@ -484,6 +517,24 @@
               </div>
             </div>
           </div>
+          
+          {/* SEO Text Block */}
+          <section className="bg-white px-6 py-6 border-t border-gray-200">
+            <div className="max-w-4xl mx-auto text-sm text-gray-700 space-y-3">
+              <h2 className="text-lg font-bold text-[#035379]">
+                Live Welland Canal Bridge Status
+              </h2>
+              <p>
+                BridgeStatus.ca provides real-time updates for all lift bridges along the Welland Canal
+                in St. Catharines, Thorold, Welland, and Port Colborne. The map automatically refreshes
+                and shows whether each bridge is open, closed, or raising soon.
+              </p>
+              <p>
+                This tool helps commuters avoid delays caused by ship crossings and is powered by
+                automated data collection from the official Seaway bridge status feed.
+              </p>
+            </div>
+          </section>
 
           {/* Footer */}
           <footer className="animated-gradient text-white text-center py-4 text-xs font-bold uppercase tracking-wide">
