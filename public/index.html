@@ -96,6 +96,53 @@
     .floating-button:active {
       transform: scale(0.95);
     }
+
+    /* Mobile optimizations - smaller legend, bigger map */
+    @media (max-width: 768px) {
+      /* Make legend much smaller on mobile */
+      .legend-mobile {
+        padding: 0.5rem 0.75rem !important;
+        border-top-width: 2px !important;
+      }
+
+      .legend-mobile .legend-title {
+        font-size: 0.65rem !important;
+        margin-bottom: 0.25rem !important;
+      }
+
+      .legend-mobile .legend-subtitle {
+        font-size: 0.55rem !important;
+        margin-bottom: 0.3rem !important;
+        display: none; /* Hide subtitle on mobile to save space */
+      }
+
+      .legend-mobile .legend-items {
+        gap: 0.3rem !important;
+        font-size: 0.55rem !important;
+      }
+
+      .legend-mobile .legend-item {
+        padding: 0.2rem 0.35rem !important;
+        gap: 0.2rem !important;
+      }
+
+      .legend-mobile .legend-dot {
+        width: 0.5rem !important;
+        height: 0.5rem !important;
+      }
+
+      /* Make footer smaller on mobile */
+      footer {
+        padding: 0.5rem !important;
+        font-size: 0.6rem !important;
+      }
+
+      /* Ensure map container takes maximum space */
+      .map-container {
+        flex: 1 1 auto !important;
+        min-height: 0 !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -441,7 +488,7 @@
           )}
 
           {/* Map Container with Floating Button */}
-          <div className="flex-1 mt-16 relative">
+          <div className="map-container flex-1 mt-16 relative">
             <div ref={mapRef} className="w-full h-full" />
             
             {/* Loading Indicator */}
@@ -491,32 +538,32 @@
           </div>
 
           {/* Legend */}
-          <div className="bg-white border-t-4 border-[#10b981] px-6 py-5">
+          <div className="legend-mobile bg-white border-t-4 border-[#10b981] px-6 py-5">
             <div className="max-w-4xl mx-auto">
-              <p className="font-bold uppercase text-base mb-3 text-[#035379] text-center">Welland Canal Bridge Legend</p>
-              <p className="text-sm text-gray-600 mb-4 text-center">
+              <p className="legend-title font-bold uppercase text-base mb-3 text-[#035379] text-center">Welland Canal Bridge Legend</p>
+              <p className="legend-subtitle text-sm text-gray-600 mb-4 text-center">
                 Click on a bridge marker to see its status and location.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4 text-sm font-semibold">
-                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                  <span className="w-5 h-5 rounded-full bg-green-500 shadow-md"></span>
+              <div className="legend-items flex flex-wrap justify-center gap-4 text-sm font-semibold">
+                <span className="legend-item flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="legend-dot w-5 h-5 rounded-full bg-green-500 shadow-md"></span>
                   Open
                 </span>
-                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                  <span className="w-5 h-5 rounded-full bg-red-500 shadow-md"></span>
+                <span className="legend-item flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="legend-dot w-5 h-5 rounded-full bg-red-500 shadow-md"></span>
                   Closed
                 </span>
-                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                  <span className="w-5 h-5 rounded-full bg-yellow-400 shadow-md"></span>
+                <span className="legend-item flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="legend-dot w-5 h-5 rounded-full bg-yellow-400 shadow-md"></span>
                   Raising Soon
                 </span>
-                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                  <span className="w-5 h-5 rounded-full bg-purple-500 shadow-md"></span>
+                <span className="legend-item flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="legend-dot w-5 h-5 rounded-full bg-purple-500 shadow-md"></span>
                   Lowering
                 </span>
-                <span className="flex items-center gap-2 px-4 py-2 glass rounded-full">
-                  <span className="w-5 h-5 rounded-full bg-blue-500 shadow-md"></span>
+                <span className="legend-item flex items-center gap-2 px-4 py-2 glass rounded-full">
+                  <span className="legend-dot w-5 h-5 rounded-full bg-blue-500 shadow-md"></span>
                   You Are Here
                 </span>
               </div>
