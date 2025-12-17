@@ -15,9 +15,15 @@
   <meta name="description" content="Live Welland Canal bridge status for St. Catharines, Thorold, Welland, and Port Colborne. Real-time map showing which bridges are up, down, or raising soon. Updated automatically for commuters.">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  
+  <!-- Favicons - Multiple sizes for different platforms -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+  <link rel="shortcut icon" href="/favicon.ico">
   <link rel="manifest" href="/site.webmanifest">
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.bridgestatus.ca/" />
@@ -28,11 +34,14 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.bridgestatus.ca/">
     <meta property="og:image" content="https://www.bridgestatus.ca/logo.png">
+    <meta property="og:image:alt" content="Welland Canal Bridge Status Logo">
+    <meta property="og:site_name" content="Bridge Status">
 
-  <!-- X -->
+  <!-- X (Twitter) -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Welland Canal Bridge Status">
   <meta name="twitter:description" content="Real-time bridge lift status along the Welland Canal.">
+  <meta name="twitter:image" content="https://www.bridgestatus.ca/logo.png">
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
@@ -43,11 +52,11 @@
     "url": "https://www.bridgestatus.ca/",
     "applicationCategory": "TrafficMonitoring",
     "description": "Live Welland Canal bridge status updated continuously for commuters.",
-    "operatingSystem": "Web"
+    "operatingSystem": "Web",
+    "image": "https://www.bridgestatus.ca/logo.png",
+    "logo": "https://www.bridgestatus.ca/logo.png"
   }
   </script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>

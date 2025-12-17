@@ -137,6 +137,16 @@ http://localhost:3000
 
 - Mobile Application: Build a native mobile app (iOS/Android) for an even smoother experience, despite already having a mobile-friendly website — a chance to explore mobile development.
 
-- User Features: Allow commuters to “favorite” certain bridges and receive status alerts.
+- User Features: Allow commuters to "favorite" certain bridges and receive status alerts.
 
 - Analytics Dashboard: Track bridge traffic patterns and opening frequency to give long-term insights.
+
+## 📧 Contact
+
+**Developer:** Saqib Khan
+
+- **Email:** [khans416@mcmaster.ca](mailto:khans416@mcmaster.ca)
+- **LinkedIn:** [linkedin.com/in/saqib-khan-aa127b275](https://www.linkedin.com/in/saqib-khan-aa127b275/)
+- **GitHub:** [github.com/saqib-21](https://github.com/saqib-21)
+
+Feel free to reach out with questions, suggestions, or collaboration opportunities!
